@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="text-center">All Students </h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -12,7 +12,7 @@
 </p>
   <form method="get" asp-action="Index">
       <p>
-          <input type="search" placeholder="Enter First Name Or Last Name..." value="@ViewData["Getstudent"]" name="Sdtsearch" style="width:800px;" : />
+          <input type="search" placeholder="Enter First Name Or Last Name & adrrress..." value="@ViewData["Getstudent"]" name="Sdtsearch" style="width:800px;" : />
           <input type="submit" value="search" class="btn btn-dark": /> 
           <a asp-action="Index">Get All Students</a>
 
@@ -58,7 +58,7 @@
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.id },new { @class= "btn btn-warning"}) |
+                @Html.ActionLink("Edit", "Edit", new { id=item.id },new { @class= "btn btn-primary"}) |
                 @Html.ActionLink("Details", "Details", new { id = item.id }, new { @class = "btn btn-success"}) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
 

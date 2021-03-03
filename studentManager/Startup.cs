@@ -26,8 +26,36 @@ namespace studentManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRazorPages();
             services.AddControllersWithViews();
             services.AddDbContext<ManagementDbContext>(Options => Options.UseSqlServer(Configuration.GetConnectionString("connexion")));
+            services.AddAuthentication()
+                .AddGoogle(googleOptions =>
+                {
+                    IConfigurationSection googleAuthNSection =
+                        Configuration.GetSection("Authentication:Google");
+
+                    googleOptions.ClientId = googleAuthNSection["ClientId"];
+                    googleOptions.ClientSecret = googleAuthNSection["ClientSecret"];
+
+                    //googleOptions.CallbackPath = new PathString("/signin-google");
+                })
+                .AddFacebook(options =>
+                {
+                    options.AppId = Configuration["Authentication:Facebook:AppId"];
+                    options.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                    options.AccessDeniedPath = "/AccessDeniedPathInfo";
+                });
+
+
+
+
+
+
+
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +76,8 @@ namespace studentManager
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -55,6 +85,7 @@ namespace studentManager
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Student}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

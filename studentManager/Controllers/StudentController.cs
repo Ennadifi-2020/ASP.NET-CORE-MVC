@@ -28,7 +28,7 @@ namespace studentManager.Controllers
             var etudiant = from x in _db.students select x;
             if (!string.IsNullOrEmpty(Sdtsearch))
             {
-                etudiant = etudiant.Where(x => x.firstName.Contains(Sdtsearch) || x.lastName.Contains(Sdtsearch));
+                etudiant = etudiant.Where(x => x.firstName.Contains(Sdtsearch) || x.lastName.Contains(Sdtsearch) || x.Address.Contains(Sdtsearch));
             }
             return View(await etudiant.AsNoTracking().ToListAsync());
 
