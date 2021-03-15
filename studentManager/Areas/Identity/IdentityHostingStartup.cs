@@ -20,11 +20,16 @@ namespace studentManager.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("connexion")));
 
-                services.AddIdentity<User, IdentityRole>(options => { options.SignIn.RequireConfirmedAccount = false;
+                services.AddIdentity<User, IdentityRole>(options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
                 })
-                    .AddEntityFrameworkStores<UserContext>();
+                    .AddEntityFrameworkStores<UserContext>()
+                    .AddDefaultUI()
+                    .AddDefaultTokenProviders();
+                
             });
         }
     }
